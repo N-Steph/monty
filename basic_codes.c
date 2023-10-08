@@ -17,8 +17,7 @@ void push(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 	if (new_node == NULL)
 	{
 		dprintf(STDERR_FILENO, "Error: malloc failed\n");
-		free_stack(stack);
-		exit(EXIT_FAILURE);
+		return;
 	}
 	if (*stack == NULL)
 	{
@@ -55,4 +54,78 @@ void pall(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 		printf("%d\n", next->n);
 		next = next->prev;
 	}
+}
+
+/**
+ * pint - prints the value at the top of the stack
+ * @stack: stack containing value to print
+ * @line_number: line at which opcode was read
+ *
+ * Return: nothing
+ */
+void pint(stack_t **stack, unsigned int __attribute__((unused)) line_number)
+{
+	if (stack == NULL)
+		return;
+	if (*stack == NULL)
+	{
+		dprintf(STDERR_FILENO, "L%d: can't pint, stack empty", line_number);
+		return;
+	}
+	printf("%d\n", (*stack)->n);
+}
+
+/**
+ * pop - removes the top element of the stack
+ * @stack: stack containing value to pint
+ * @line_number: line at which opcode was read
+ *
+ * Return: nothing
+ */
+void pop(stack_t **stack, unsigned int __attribute__((unused)) line_number)
+{
+	stack_t *to_free;
+
+	if (stack == NULL)
+		return;
+	if (*stack == NULL)
+	{
+		dprintf(STDERR_FILENO, "L%d: can't pop an empty stack", line_number);
+		return;
+	}
+	if ((*stack)->prev == NULL)
+	{
+		free(*stack);
+		*stack = NULL;
+		return;
+	}
+	to_free = *stack;
+	*stack = (*stack)->prev;
+	(*stack)->next = NULL;
+	free(to_free);
+}
+
+/**
+ * swap - swaps the top two elements of the stack
+ * @stack: stack containing value to swap
+ * @line_number: line at which opcode was read
+ *
+ * Return: nothing
+ */
+void swap(stack_t **stack, unsigned int __attribute__((unused)) line_number)
+{
+	int temp;
+	size_t len;
+
+	if (stack == NULL)
+		return;
+	len = dlistint_len(*stack);
+	if (len < 2)
+	{
+		dprintf(STDERR_FILENO, "L%d: can't swap, stack too short", line_number);
+		return;
+	}
+	temp = (*stack)->n;
+	(*stack)->n = (*stack)->prev->n;
+	(*stack)->prev->n = temp;
 }

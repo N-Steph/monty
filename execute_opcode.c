@@ -11,7 +11,7 @@
 int execute_opcode(stack_t **stack, char *ptr, size_t line_number)
 {
 	char *opcode_read[3], *data, *digit = "0123456789";
-	int status;
+	int status, error_code;
 	void (*handler)(stack_t **stack, unsigned int line_number);
 
 	opcode_extractor(ptr, opcode_read);
@@ -40,7 +40,10 @@ int execute_opcode(stack_t **stack, char *ptr, size_t line_number)
 	if (status != 1)
 		return (-1);
 	free(ptr);
+	error_code = errno;
 	handler(stack, line_number);
+	if (error_code != errno)
+		return (-1);
 	return (0);
 }
 
@@ -54,7 +57,8 @@ int execute_opcode(stack_t **stack, char *ptr, size_t line_number)
  */
 void check_opcode(char *ptr, size_t ln, char **opcode_read)
 {
-	char *opcode_list[3] = {"push", "pall", NULL};
+	char *opcode_list[8] = {"push", "pall", "pint",
+		"pop", "swap", "add", "nop", NULL};
 	int i;
 
 	if (opcode_read[2] != NULL)

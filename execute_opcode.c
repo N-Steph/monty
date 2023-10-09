@@ -43,7 +43,7 @@ int execute_opcode(stack_t **stack, char *ptr, size_t line_number)
 	error_code = errno;
 	handler(stack, line_number);
 	if (error_code != errno)
-		return (-1);
+		return (-2);
 	return (0);
 }
 

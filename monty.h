@@ -57,6 +57,7 @@ void error_push(size_t line_number);
 void free_stack(stack_t **stack);
 int validate_arg(size_t ln, char **opcode_read);
 void clean_up(stack_t **stack, char *ptr, FILE *fileptr);
+void clean_up_handler_fail(stack_t **stack, FILE *fileptr);
 size_t dlistint_len(stack_t *stack);
 
 #endif /* MONTY_H */

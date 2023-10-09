@@ -15,7 +15,9 @@ int execute_opcode(stack_t **stack, char *ptr, size_t line_number)
 	void (*handler)(stack_t **stack, unsigned int line_number);
 
 	opcode_extractor(ptr, opcode_read);
-	check_opcode(ptr, line_number, opcode_read);
+	status = check_opcode(ptr, line_number, opcode_read);
+	if (status != 0)
+		return (-1);
 	handler = opcode_handler_selector(opcode_read[0]);
 	if (strcmp(opcode_read[0], "push") == 0)
 	{
@@ -53,24 +55,28 @@ int execute_opcode(stack_t **stack, char *ptr, size_t line_number)
  * @ln: line at which opcode was read
  * @opcode_read: array containing opcode and/or data
  *
- * Return: nothing
+ * Return: 0 (if opcode is correct), -1 otherwise
  */
-void check_opcode(char *ptr, size_t ln, char **opcode_read)
+int check_opcode(char *ptr, size_t ln, char **opcode_read)
 {
 	char *opcode_list[8] = {"push", "pall", "pint",
 		"pop", "swap", "add", "nop", NULL};
 	int i;
 
 	if (opcode_read[2] != NULL)
+	{
 		error_opcode(ptr, ln);
+		return (-1);
+	}
 	i = 0;
 	while (opcode_list[i] != NULL)
 	{
 		if (strcmp(opcode_list[i], opcode_read[0]) == 0)
-			return;
+			return (0);
 		i++;
 	}
 	error_opcode(ptr, ln);
+	return (-1);
 }
 
 /**

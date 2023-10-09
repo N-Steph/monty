@@ -33,6 +33,7 @@ void add(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 	if (len < 2)
 	{
 		dprintf(STDERR_FILENO, "L%d: can't add, stack too short\n", line_number);
+		errno = -1;
 		return;
 	}
 	(*stack)->prev->n = (*stack)->n + (*stack)->prev->n;

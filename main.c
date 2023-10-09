@@ -38,22 +38,39 @@ int main(int argc, char **argv)
 			continue;
 		}
 		exec_status = execute_opcode(&stack, lineptr, line_number);
-		if (exec_status == -1)
-		{
-			clean_up(&stack, lineptr, monty_file);
-			exit(EXIT_FAILURE);
-		}
-		else if (exec_status == -2)
-		{
-			clean_up_handler_fail(&stack, monty_file);
-			exit(EXIT_FAILURE);
-		}
+		clean_up_selector(exec_status, &stack, lineptr, monty_file);
 		lineptr = NULL;
 	}
 	clean_up(&stack, lineptr, monty_file);
 	return (0);
 }
 
+/**
+ * clean_up_selector - selection clean up action
+ *
+ * Description: This function select the clean up action base
+ * on the return value of execute_opcode() function
+ *
+ * @status: return value of execute_opcode()
+ * @stack: stack of integer
+ * @ptr: pointer to line read
+ * @fptr: pointer to monty bytecode file
+ *
+ * Return: nothing
+ */
+void clean_up_selector(int status, stack_t **stack, char *ptr, FILE *fptr)
+{
+	if (status == -1)
+	{
+		clean_up(stack, ptr, fptr);
+		exit(EXIT_FAILURE);
+	}
+	else if (status == -2)
+	{
+		clean_up_handler_fail(stack, fptr);
+		exit(EXIT_FAILURE);
+	}
+}
 /**
  * clean_up - do some clean up before ending program
  * @stack: stack containing integers

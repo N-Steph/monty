@@ -17,6 +17,7 @@ void push(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 	if (new_node == NULL)
 	{
 		dprintf(STDERR_FILENO, "Error: malloc failed\n");
+		errno = -1;
 		return;
 	}
 	if (*stack == NULL)
@@ -70,6 +71,7 @@ void pint(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 	if (*stack == NULL)
 	{
 		dprintf(STDERR_FILENO, "L%d: can't pint, stack empty", line_number);
+		errno = -1;
 		return;
 	}
 	printf("%d\n", (*stack)->n);
@@ -91,6 +93,7 @@ void pop(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 	if (*stack == NULL)
 	{
 		dprintf(STDERR_FILENO, "L%d: can't pop an empty stack", line_number);
+		errno = -1;
 		return;
 	}
 	if ((*stack)->prev == NULL)
@@ -123,6 +126,7 @@ void swap(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 	if (len < 2)
 	{
 		dprintf(STDERR_FILENO, "L%d: can't swap, stack too short", line_number);
+		errno = -1;
 		return;
 	}
 	temp = (*stack)->n;

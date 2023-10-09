@@ -43,6 +43,11 @@ int main(int argc, char **argv)
 			clean_up(&stack, lineptr, monty_file);
 			exit(EXIT_FAILURE);
 		}
+		else if (exec_status == -2)
+		{
+			clean_up_handler_fail(&stack, monty_file);
+			exit(EXIT_FAILURE);
+		}
 		lineptr = NULL;
 	}
 	clean_up(&stack, lineptr, monty_file);
@@ -60,6 +65,19 @@ int main(int argc, char **argv)
 void clean_up(stack_t **stack, char *ptr, FILE *fileptr)
 {
 	free(ptr);
+	free_stack(stack);
+	fclose(fileptr);
+}
+
+/**
+ * clean_up_handler_fail - do some clean up before ending program
+ * @stack: stack containing integers
+ * @fileptr: file pointer
+ *
+ * Return: nothing
+ */
+void clean_up_handler_fail(stack_t **stack, FILE *fileptr)
+{
 	free_stack(stack);
 	fclose(fileptr);
 }

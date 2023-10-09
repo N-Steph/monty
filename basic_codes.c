@@ -70,7 +70,7 @@ void pint(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 		return;
 	if (*stack == NULL)
 	{
-		dprintf(STDERR_FILENO, "L%d: can't pint, stack empty", line_number);
+		dprintf(STDERR_FILENO, "L%d: can't pint, stack empty\n", line_number);
 		errno = -1;
 		return;
 	}

@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	while ((char_read = getline(&lineptr, &n, monty_file) >= 0))
 	{
 		line_number++;
-		if (strcmp(lineptr, "\n") == 0)
+		if (strcmp(lineptr, "\n") == 0 || lineptr[0] == '#')
 		{
 			free(lineptr);
 			lineptr = NULL;

@@ -58,7 +58,7 @@ int check_opcode(char *ptr, size_t ln, char **opcode_read)
 {
 	char *opcode_list[] = {"push", "pall", "pint",
 		"pop", "swap", "add", "nop", "sub",
-		"div", "mul", "mod", "pchar", NULL};
+		"div", "mul", "mod", "pchar", "pstr", NULL};
 	int i;
 
 	i = 0;

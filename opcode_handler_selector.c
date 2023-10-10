@@ -13,6 +13,7 @@ handler opcode_handler_selector(char *opcode)
 		{"push", push}, {"pint", pint}, {"pop", pop}, {"swap", swap},
 		{"pall", pall}, {"add", add}, {"nop", nop}, {"sub", sub},
 		{"div", division}, {"mul", mul}, {"mod", mod},
+		{"pchar", pchar},
 		{NULL, NULL}
 	};
 

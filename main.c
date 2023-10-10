@@ -35,6 +35,7 @@ int main(int argc, char **argv)
 		if (strcmp(lineptr, "\n") == 0)
 		{
 			free(lineptr);
+			lineptr = NULL;
 			continue;
 		}
 		exec_status = execute_opcode(&stack, lineptr, line_number);

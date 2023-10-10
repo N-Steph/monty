@@ -11,7 +11,8 @@ handler opcode_handler_selector(char *opcode)
 	int i = 0;
 	instruction_t opcode_function[] = {
 		{"push", push}, {"pint", pint}, {"pop", pop}, {"swap", swap},
-		{"pall", pall}, {"add", add}, {"nop", nop},
+		{"pall", pall}, {"add", add}, {"nop", nop}, {"sub", sub},
+		{"div", division}, {"mul", mul}, {"mod", mod},
 		{NULL, NULL}
 	};
 

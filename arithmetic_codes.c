@@ -24,6 +24,7 @@ void add(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 	(*stack)->prev->n = (*stack)->n + (*stack)->prev->n;
 	temp = *stack;
 	*stack = (*stack)->prev;
+	(*stack)->next = NULL;
 	free(temp);
 }
 
@@ -52,6 +53,7 @@ void sub(stack_t **stack, unsigned int line_number)
 	(*stack)->prev->n = (*stack)->prev->n - (*stack)->n;
 	temp = *stack;
 	*stack = (*stack)->prev;
+	(*stack)->next = NULL;
 	free(temp);
 }
 
@@ -86,6 +88,7 @@ void division(stack_t **stack, unsigned int line_number)
 	(*stack)->prev->n = (int) ((*stack)->prev->n / (*stack)->n);
 	temp = *stack;
 	*stack = (*stack)->prev;
+	(*stack)->next = NULL;
 	free(temp);
 
 }
@@ -115,6 +118,7 @@ void mul(stack_t **stack, unsigned int line_number)
 	(*stack)->prev->n = (*stack)->prev->n * (*stack)->n;
 	temp = *stack;
 	*stack = (*stack)->prev;
+	(*stack)->next = NULL;
 	free(temp);
 
 }
@@ -153,6 +157,7 @@ void mod(stack_t **stack, unsigned int line_number)
 	(*stack)->prev->n = result;
 	temp = *stack;
 	*stack = (*stack)->prev;
+	(*stack)->next = NULL;
 	free(temp);
 
 }

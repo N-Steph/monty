@@ -58,6 +58,7 @@ void mul(stack_t **stack, unsigned int line_number);
 void mod(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 void pchar(stack_t **stack, unsigned int line_number);
+void pstr(stack_t **stack, unsigned int line_number);
 void error_push(size_t line_number);
 void free_stack(stack_t **stack);
 void clean_up_selector(int status, stack_t **stack, char *ptr, FILE *fptr);

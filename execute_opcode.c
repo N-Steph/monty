@@ -2,45 +2,44 @@
 
 /**
  * execute_opcode - execute the function pointed by opcode
- * @ptr: points to opcode to execute
- * @line_number: line at which opcode was read
+ * @opcd_read: array containg opcode and/or data to execute
+ * @line_num: line at which opcode was read
  * @stack: stack containing integer
+ * @ds: sets the data format to use
  *
  * Return: -1 (failure), 0 (success)
  */
-int execute_opcode(stack_t **stack, char *ptr, size_t line_number)
+int execute_opcode(stack_t **stack, char **opcd_read, size_t line_num, int ds)
 {
-	char *opcode_read[3], *data, *digit = "0123456789";
+	char *data, *digit = "0123456789";
 	int status, error_code;
 	void (*handler)(stack_t **stack, unsigned int line_number);
 
-	opcode_extractor(ptr, opcode_read);
-	status = check_opcode(ptr, line_number, opcode_read);
+	status = check_opcode(opcd_read[0], line_num, opcd_read);
 	if (status != 0)
 		return (-1);
-	handler = opcode_handler_selector(opcode_read[0]);
-	if (strcmp(opcode_read[0], "push") == 0)
+	handler = opcode_handler_selector(opcd_read[0], ds);
+	if (strcmp(opcd_read[0], "push") == 0)
 	{
-		if (opcode_read[1] == NULL)
+		if (opcd_read[1] == NULL)
 		{
-			error_push(line_number);
+			error_push(line_num);
 			return (-1);
 		}
-		data = opcode_read[1];
+		data = opcd_read[1];
 		while (*data != '\0')
 		{
 			if (strchr(digit, *data) == NULL)
 			{
-				error_push(line_number);
+				error_push(line_num);
 				return (-1);
 			}
 			data++;
 		}
-		integer = atoi(opcode_read[1]);
+		integer = atoi(opcd_read[1]);
 	}
-	free(ptr);
 	error_code = errno;
-	handler(stack, line_number);
+	handler(stack, line_num);
 	if (error_code != errno)
 		return (-2);
 	return (0);
@@ -50,21 +49,22 @@ int execute_opcode(stack_t **stack, char *ptr, size_t line_number)
  * check_opcode - checks if the opcode read is a valid one
  * @ptr: points to the opcode read from monty file
  * @ln: line at which opcode was read
- * @opcode_read: array containing opcode and/or data
+ * @opcd_read: array containing opcode and/or data
  *
  * Return: 0 (if opcode is correct), -1 otherwise
  */
-int check_opcode(char *ptr, size_t ln, char **opcode_read)
+int check_opcode(char *ptr, size_t ln, char **opcd_read)
 {
 	char *opcode_list[] = {"push", "pall", "pint",
 		"pop", "swap", "add", "nop", "sub",
-		"div", "mul", "mod", "pchar", "pstr", NULL};
+		"div", "mul", "mod", "pchar", "pstr", 
+		"rotl", "rotr", NULL};
 	int i;
 
 	i = 0;
 	while (opcode_list[i] != NULL)
 	{
-		if (strcmp(opcode_list[i], opcode_read[0]) == 0)
+		if (strcmp(opcode_list[i], opcd_read[0]) == 0)
 			return (0);
 		i++;
 	}

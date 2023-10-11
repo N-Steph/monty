@@ -125,7 +125,7 @@ void swap(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 	len = dlistint_len(*stack);
 	if (len < 2)
 	{
-		dprintf(STDERR_FILENO, "L%d: can't swap, stack too short", line_number);
+		dprintf(STDERR_FILENO, "L%d: can't swap, stack too short\n", line_number);
 		errno = -1;
 		return;
 	}

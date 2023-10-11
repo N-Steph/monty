@@ -65,8 +65,9 @@ void rotr(stack_t **stack, unsigned int line_number);
 void error_push(size_t line_number);
 void free_stack(stack_t **stack);
 int ds_format_selector(char *ptr);
-void clean_up_selector(int status, stack_t **stack, char *ptr, FILE *fptr);
+void clean_up_selector(int status, stack_t **stack, char **ptr, FILE *fptr);
 void clean_up(stack_t **stack, char *ptr, FILE *fileptr);
+void partial_clean_up(char **lineptr);
 size_t dlistint_len(stack_t *stack);
 
 #endif /* MONTY_H */

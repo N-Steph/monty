@@ -29,6 +29,11 @@ int main(int argc, char **argv)
 	while ((char_read = getline(&lineptr, &n, monty_file) >= 0))
 	{
 		line_number++;
+		if (strcmp(lineptr, "\n") == 0 || lineptr[0] == '#')
+		{
+			partial_clean_up(&lineptr);
+			continue;
+		}
 		opcode_extractor(lineptr, opcode_read);
 		prev_ds = ds_format;
 		ds_format = ds_format_selector(opcode_read[0]);

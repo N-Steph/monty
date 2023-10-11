@@ -112,7 +112,7 @@ void clean_up(stack_t **stack, char *ptr, FILE *fileptr)
 /**
  * partial_clean_up - do some clean up before continuing reading
  * monty file
- * @ptr: buffer of line read in monty file
+ * @lineptr: buffer of line read in monty file
  *
  * Return: nothing
  */

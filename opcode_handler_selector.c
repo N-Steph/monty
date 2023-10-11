@@ -14,7 +14,7 @@ handler opcode_handler_selector(char *opcode, int ds)
 		{"pint", pint}, {"pop", pop}, {"swap", swap},
 		{"pall", pall}, {"add", add}, {"nop", nop}, {"sub", sub},
 		{"div", division}, {"mul", mul}, {"mod", mod},
-		{"pchar", pchar}, {"pstr", pstr},{"rotl", rotl},
+		{"pchar", pchar}, {"pstr", pstr}, {"rotl", rotl},
 		{"rotr", rotr},
 		{NULL, NULL}
 	};

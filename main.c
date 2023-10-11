@@ -54,6 +54,8 @@ int main(int argc, char **argv)
  */
 int ds_format_selector(char *ptr)
 {
+	if (ptr == NULL)
+		return (0);
 	if (strcmp(ptr, "stack") == 0)
 		return (1);
 	else if (strcmp(ptr, "queue") == 0)

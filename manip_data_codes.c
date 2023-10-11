@@ -48,7 +48,10 @@ void pstr(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 	while (temp != NULL)
 	{
 		if (temp->n < 32 || temp->n > 126)
+		{
+			printf("\n");
 			return;
+		}
 		if (temp->n == 0)
 		{
 			printf("\n");

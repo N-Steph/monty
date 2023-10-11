@@ -15,7 +15,9 @@ int execute_opcode(stack_t **stack, char **opcd_read, size_t line_num, int ds)
 	int status, error_code;
 	void (*handler)(stack_t **stack, unsigned int line_number);
 
-	if (strcmp(opcd_read[0], "#") == 0 || opcd_read[0][0] == '#')
+	if (strcmp(opcd_read[0], "#") == 0
+			|| opcd_read[0][0] == '#'
+			|| strcmp(opcd_read[0], "\n") == 0)
 		return (0);
 	status = check_opcode(opcd_read[0], line_num, opcd_read);
 	if (status != 0)

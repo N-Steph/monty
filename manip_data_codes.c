@@ -57,6 +57,7 @@ void pstr(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 		printf("%c", temp->n);
 		temp = temp->prev;
 	}
+	printf("\n");
 }
 
 /**

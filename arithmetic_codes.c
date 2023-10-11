@@ -124,7 +124,7 @@ void mul(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * mod - computes the rest of the division of th second top
+ * mod - computes the rest of the division of the second top
  * element of the stack by the top element of the stack
  * @stack: stack containing value to print
  * @line_number: line at which opcode was read
@@ -153,7 +153,7 @@ void mod(stack_t **stack, unsigned int line_number)
 		return;
 	}
 	result = (int)((*stack)->prev->n / (*stack)->n);
-	result = (*stack)->prev->n - (*stack)->n;
+	result = (*stack)->prev->n - ((*stack)->n * result);
 	(*stack)->prev->n = result;
 	temp = *stack;
 	*stack = (*stack)->prev;

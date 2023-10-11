@@ -12,7 +12,7 @@
 int execute_opcode(stack_t **stack, char **opcd_read, size_t line_num, int ds)
 {
 	char *data, *digit = "0123456789";
-	int status, error_code;
+	int status, error_code, i = 0;
 	void (*handler)(stack_t **stack, unsigned int line_number);
 
 	if (strcmp(opcd_read[0], "#") == 0
@@ -31,14 +31,16 @@ int execute_opcode(stack_t **stack, char **opcd_read, size_t line_num, int ds)
 			return (-1);
 		}
 		data = opcd_read[1];
-		while (*data != '\0')
+		if (data[i] == '+' || data[i] == '-')
+			i++;
+		while (data[i] != '\0')
 		{
-			if (strchr(digit, *data) == NULL)
+			if (strchr(digit, data[i]) == NULL)
 			{
 				error_push(line_num);
 				return (-1);
 			}
-			data++;
+			i++;
 		}
 		integer = atoi(opcd_read[1]);
 	}

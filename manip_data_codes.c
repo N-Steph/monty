@@ -47,7 +47,7 @@ void pstr(stack_t **stack, unsigned int __attribute__((unused)) line_number)
 	temp = *stack;
 	while (temp != NULL)
 	{
-		if (temp->n < 0 || temp->n > 127)
+		if (temp->n < 32 || temp->n > 126)
 			return;
 		if (temp->n == 0)
 		{
